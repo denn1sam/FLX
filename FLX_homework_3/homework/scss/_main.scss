@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: $fonts;
+}
+.main-wrapper {
+    background: $mainBackground;
+}
+header {
+    height: 100vh;
+    width: 100%;
+    background: $headerBackground no-repeat;
+    background-size: cover;
+    text-transform: uppercase;
+    color: $headerFontsColor;
+}
+.top-wrapper {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.logo img {
+    height: 150px;
+}
+nav {
+    padding: 10px;
+    a {
+        padding: 10px 100px;
+        text-decoration: none;
+        color: $headerFontsColor;
+        border-right: 1px solid $navBorderColor;
+        font-weight: 600;
+    }
+    a:last-child {
+        border: none;
+    }
+}
+header section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+}
+a.btn.btn-top, form button {
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 15px 80px;
+    background: $topButtonBackground;
+    border: none;
+    text-decoration: none;
+    color: #eeeeee;
+    transition-duration: 0.5s;
+    &:hover {
+        background: darken($topButtonBackground, 10%);
+    }
+}
+
+main {
+    max-width: 960px;
+    font-size: $fontSize;
+    margin: auto;
+    color: $mainTextColor;
+}
+.toolbar {
+    text-align: right;
+    padding: 10px;
+    input {
+        padding: 10px 10px 10px 20px;
+        margin-right: 5px;
+        color: $mainTextColor;
+        background: inherit;
+        border: 1px solid #bbbbbb;
+    }
+}
+.post-list {
+    h1 {
+        text-align: right;
+        text-transform: uppercase;
+    }
+    article {
+        background: $articleBackground;
+        padding: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    article > div {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+.post-description {
+    font-size: 0.9em;
+    color: $postDescriptionColor;
+    border-bottom: 1px solid $postDescriptionBorder;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.post {
+    h3 {
+        color: $artecleHeaderColor;
+        text-transform: uppercase;
+    }
+    > p {
+        line-height: 25px;
+    }
+}
+.post-list .btn {
+    cursor: pointer;
+    padding: 15px 80px;
+    border: none;
+    background: $topButtonBackground;
+    color: #eeeeee;
+    text-transform: uppercase;
+    transition-duration: 0.5s;
+    &:hover {
+        background: darken($topButtonBackground, 10%);
+    }
+}
+.about {
+    padding: 10px;
+    h1 {
+        text-align: right;
+        text-transform: uppercase;
+    }
+    p {
+        line-height: 25px;
+        margin-bottom: 20px;
+    }
+    div img {
+        width: 100%;
+    }
+}
+
+.contact-form {
+    text-align: right;
+    h4 {
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+}
+.input-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.input-block {
+    width: 100%;
+    display: inline-block;
+    &:first-child {
+        margin-right: 10px;
+    }
+}
+form {
+    font-size: $fontSize;
+    input, label {
+        width: 100%;
+        display: block;
+    }
+    label {
+        color: $artecleHeaderColor;
+    }
+}
+form {
+    input, textarea {
+        color: $mainTextColor;
+        background: inherit;
+        padding: 15px;
+        box-sizing: border-box;
+        border: 1px solid #bbbbbb;
+    }
+    textarea {
+        width: 100%;
+    }
+}
+
+footer {
+    padding: 10px;
+    font-size: 0.9em;
+}
