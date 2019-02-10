@@ -4,15 +4,19 @@ function formatTime(minutes) {
         hour: 0,
         day: 0
     }
-    for (var i = 0; i < minutes; i++) {
-        date.minute++;
-        if (date.minute === 60) {
-            date.minute = 0;
-            date.hour++;
-        }
-        if (date.hour === 24) {
-            date.hour = 0;
+    while (minutes > 0) {
+        var lastDays = minutes/1440;
+        var lastHours = minutes/60;
+
+        if (lastDays >= 1) {
             date.day++;
+            minutes -= 1440;
+        } else if (lastHours >= 1) {
+            date.hour++;
+            minutes -= 60;
+        } else if (minutes > 0) {
+            date.minute++
+            minutes--;
         }
     }
     return date.day + ' day(s) ' + date.hour + ' hour(s) ' + date.minute + ' minute(s).';
