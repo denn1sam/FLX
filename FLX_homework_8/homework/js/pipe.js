@@ -10,6 +10,5 @@ console.log(pipe(1, addOne));
 console.log(pipe(1, addOne, addOne));
 
 function addOne(value) {
-    value += 1;
-    return value;
+    return value + 1;
 }
