@@ -21,6 +21,6 @@ function formatTime(minutes) {
     }
     return date.day + ' day(s) ' + date.hour + ' hour(s) ' + date.minute + ' minute(s).';
 }
-console.log(formatTime(120));
-console.log(formatTime(59));
-console.log(formatTime(3601));
+formatTime(120);
+formatTime(59);
+formatTime(3601);
