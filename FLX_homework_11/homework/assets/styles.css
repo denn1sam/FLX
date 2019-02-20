@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#main-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-list-container {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 20px;
+    min-width: 600px;
+    width: 600px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header {
+    border-bottom: 2px solid #000;
+    text-align: center;
+    margin: 15px;
+}
+.header p {
+    font-size: 28px;
+    margin: 20px;
+}
+.header p:nth-child(2) {
+    font-size: 18px;
+}
+.actions-field {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+#input-field {
+    width: 100%;
+    margin: 4px;
+    padding: 0 10px;
+    font-size: 18px;
+}
+.disabled {
+    color: rgba(0, 0, 0, 0.7);
+}
+.material-icons {
+    cursor: pointer;
+    font-size: 40px;
+}
+.list-container {
+    height: 100%;
+    margin: 15px;
+}
+.list-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.check-and-text {
+    display: flex;
+    align-items: center;
+}
+.row-text {
+    padding: 0 10px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 0;
+}
+.footer img {
+    height: 70px;
+}
