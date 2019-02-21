@@ -8,14 +8,7 @@ let addButton = document.getElementById('add-button');
 let listContainer = document.getElementById('list');
 let disabledButton = document.getElementsByClassName('disabled')[zero];
 let notification = document.getElementsByClassName('notification')[zero];
-
-inputField.addEventListener('input', function () {
-  if (inputField.value.trim !== '') {
-    addButton.classList.remove('disabled'); 
-  } else {
-    addButton.classList.add('disabled');
-  }
-});
+let rowsCount = document.getElementsByClassName('list-row');
 
 addButton.addEventListener('click', function() {
   disabledButton = document.getElementsByClassName('disabled')[zero];
@@ -65,8 +58,18 @@ function createTask(text) {
   });
 }
 
+inputField.addEventListener('input', function () {
+  if (maxListLength()) {
+    if (inputField.value.trim !== '') {
+      addButton.classList.remove('disabled'); 
+    } else {
+      addButton.classList.add('disabled');
+    }
+  }
+});
+
 function maxListLength() {
-  let rowsCount = document.getElementsByClassName('list-row');
+  rowsCount = document.getElementsByClassName('list-row');
   if (rowsCount.length >= maxlistRowsLength) {
     addButton.classList.add('disabled');
     notification.style.display = 'block';
