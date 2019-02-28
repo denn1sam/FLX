@@ -47,6 +47,9 @@ button {
     padding: 5px;
     cursor: pointer;
 }
+.todo-text {
+    text-align: left;
+}
 #add-new-task,
 .cancel-btn,
 .save-changes-btn {
