@@ -1,3 +1,4 @@
+'use strict'
 const messages = {
   smallSalary: 'Cannot set smaller salary than employee has now',
   noCompany: 'Employee don`t work in any company',
@@ -15,28 +16,27 @@ function Company(company) {
   let _currentEmployees = [];
   let _logs = [];
 
-  _logs.push(`${this.companyName} was created in ${new Date().toISOString()}, by ${this.owner}`);
+  _logs.push(`${this.companyName} was created in ${new Date().toLocaleString()}, by ${this.owner}`);
 
   this.addNewEmployee = function(employee) {
     if (employee instanceof Employee) {
       if (_currentEmployees.length < this.maxCompanySize) {
         employee.hire(this.companyName);
         _currentEmployees.push(employee);
-        _logs.push(`${employee.name} starts working at ${this.companyName} in ${new Date().toISOString()}`);
+        _logs.push(`${employee.name} starts working at ${this.companyName} in ${new Date().toLocaleString()}`);
       } else {
         let currentIndex = 0;
         let minEmpSalary = _currentEmployees[currentIndex].salary;
-        
+        let biggestWorkTime = _currentEmployees[currentIndex].getWorkTimeInSeconds();
+
         for (let i = 1; i < _currentEmployees.length; i++) {
           if (minEmpSalary > _currentEmployees[i].salary) {
             currentIndex = i;
-            
-            if (minEmpSalary.salary === _currentEmployees[i].salary) {
-              if (minEmpSalary.getWorkTimeInSeconds() < _currentEmployees[i].getWorkTimeInSeconds()) {
-                minEmpSalary.salary = _currentEmployees[i].salary;
-              }
-            } else {
-              minEmpSalary.salary = _currentEmployees[i].salary;
+            minEmpSalary = _currentEmployees[i].salary;
+          } else if (minEmpSalary === _currentEmployees[i].salary) {
+            if (biggestWorkTime < _currentEmployees[i].getWorkTimeInSeconds()) {
+              currentIndex = i;
+              minEmpSalary = _currentEmployees[i].salary;
             }
           }
         }
@@ -50,7 +50,7 @@ function Company(company) {
 
   this.removeEmployee = function(id) {
     if (!isNaN(parseFloat(id)) && isFinite(id)) {
-      _logs.push(`${_currentEmployees[id].name} ends working in ${this.companyName} in ${new Date().toISOString()}`);
+      _logs.push(`${_currentEmployees[id].name} ends working in ${this.companyName} in ${new Date().toLocaleString()}`);
       _currentEmployees[id].fire();
       _currentEmployees.splice(id, one);
     }
@@ -95,8 +95,13 @@ function Employee(employee) {
   this.age = employee.age;
   this.salary = employee.salary;
 
-  let _startDate = new Date();
   let _logs = [];
+  let _startDate = 0;
+  let _finalDate = 0;
+
+  function getDate() {
+    return new Date();
+  }
 
   this.getSalary = function() {
     return `employee salary: ${this.salary}`;
@@ -113,16 +118,18 @@ function Employee(employee) {
   };
 
   this.getWorkTimeInSeconds = function() {
-    return (new Date() - _startDate) / thousand;
+    return this.company ? (getDate() - _startDate) / thousand : (_finalDate - _startDate) / thousand;
   };
 
   this.hire = function(currentCompanyName) {
+    _startDate = getDate();
     this.company = currentCompanyName;
-    _logs.push(`${this.name} is hired to ${this.company} in ${new Date().toISOString()}`);
+    _logs.push(`${this.name} is hired to ${this.company} in ${new Date().toLocaleString()}`);
   };
 
   this.fire = function() {
-    _logs.push(`${this.name} is fired from ${this.company} in ${new Date().toISOString()}`);
+    _finalDate = getDate();
+    _logs.push(`${this.name} is fired from ${this.company} in ${new Date().toLocaleString()}`);
     this.company ? delete this.company : console.log(messages.noCompany);
   };
 
