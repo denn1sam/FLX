@@ -1,11 +1,6 @@
 'use strict'
-
+//task 1
 function assign(target) {
-	
-	if (target === null || target === undefined) {
-		throw new Error('Cannot convert undefined or null to object');
-	}
-	
 	let toObj = Object(target);
 	let nextSource = 0;
 
@@ -24,19 +19,40 @@ function assign(target) {
 }
 // let defaults = { a: 123, b: 777 };
 // let options = { a: 456 };
-
 // console.log(assign({}, defaults, options));
 
-
-function isNum() {
-	let value;
-	for (let i = 0; i < arguments.length; i++) {
-		value = arguments[i];
-		return !isNaN(parseFloat(value) && isFinite(value));
-	}
+//task2
+function Bot(obj) {
+	this.name = obj.name;
+	this.speed = obj.speed;
+	this.x = obj.x;
+	this.y = obj.y;
+	this.defaultSpeed = obj.speed; 
 }
 
-function drive(value) {
+Bot.prototype.getSpeed = function() {
+	return this.speed;
+};
+Bot.prototype.setSpeed = function(newSpeed) {
+	this.speed = newSpeed;
+};
+Bot.prototype.getDefaultSpeed = function() {
+	return this.defaultSpeed;
+};
+Bot.prototype.getCoordinates = function() {
+	return {x: this.x, y: this.y};
+};
+Bot.prototype.setCoordinates = function(coord) {
+	this.x = coord.x;
+	this.y = coord.y;
+};
+Bot.prototype.move = function(value) {
+	this.drive(value);
+};
+Bot.prototype.showPosition = function() {
+	return console.log(`I am Bot '${this.name}'. I am located at ${this.x}:${this.y}`);
+};
+Bot.prototype.drive = function(value) {
 	switch (value) {
 		case 'up':
 			this.y += this.speed;
@@ -53,71 +69,33 @@ function drive(value) {
 		default:
 			console.log('Wrong value! value must be only: up, down,left, right');
 	}
-}
-
-function inheritance(Child, Parent) {
-	Child.prototype = Object.create(Parent.prototype);
-	Child.prototype.constructor = Child;
-}
-
-function Bot(obj) {
-	this.name = obj.name;
-	this.speed = obj.speed;
-	this.x = obj.x;
-	this.y = obj.y;
-	this.defaultSpeed = obj.speed; 
-}
-
-Bot.prototype.getSpeed = function() {
-	return this.speed;
-};
-Bot.prototype.setSpeed = function(newSpeed) {
-	isNum(newSpeed) ? this.speed = newSpeed : console.log('wrong value!');
-};
-Bot.prototype.getDefaultSpeed = function() {
-	return this.defaultSpeed;
-};
-Bot.prototype.getCoordinates = function() {
-	return {x: this.x, y: this.y};
-};
-Bot.prototype.setCoordinates = function(coord) {
-	if (isNum(coord.x, coord.y)) {
-		this.x = coord.x;
-		this.y = coord.y;
-	} else {
-		return console.log('wrong value!');
-	} 
-};
-Bot.prototype.move = function(value) {
-	drive.call(this, value);
-};
-Bot.prototype.showPosition = function() {
-	return console.log(`I am Bot '${this.name}'. I am located at ${this.x}:${this.y}`);
 };
 
 function Racebot(obj) {
 	Bot.call(this, obj);
 	this.preVal = null;
 }
-inheritance(Racebot, Bot);
+Racebot.prototype = Object.create(Bot.prototype);
+Racebot.prototype.constructor = Racebot;
 
 Racebot.prototype.move = function(value) {	
 	this.preVal === value ? this.setSpeed(this.speed + 1) : this.setSpeed(this.defaultSpeed);
 	
 	this.preVal = value;
-	drive.call(this, value);
+	this.drive(value);
 };
 
 function Speedbot(obj) {
 	Bot.call(this, obj);
 }
-inheritance(Speedbot, Bot);
+Speedbot.prototype = Object.create(Bot.prototype);
+Speedbot.prototype.constructor = Speedbot;
 
 Speedbot.prototype.prepareEngine = function() {
 	this.setSpeed(this.getSpeed() + 2);
 };
 Speedbot.prototype.move = function(value) {
-	drive.call(this, value);
+	this.drive(value);
 
 	if (this.speed > this.defaultSpeed) {
 		this.setSpeed(this.getSpeed() - 1);
