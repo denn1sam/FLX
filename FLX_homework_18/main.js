@@ -1,3 +1,5 @@
+let block = document.getElementById('block');
+let spinner = document.getElementsByClassName('spinner')[0];
 
 window.onload = function() {
   let refId = window.location.search.substring(1,10);
@@ -6,7 +8,6 @@ window.onload = function() {
     getRequest('GET', 'https://jsonplaceholder.typicode.com/users', renderUserList);
   } else if (refId === 'userPosts') {
     getRequest('GET', 'https://jsonplaceholder.typicode.com/posts', renderPosts);
-    // getRequest('https://jsonplaceholder.typicode.com/comments', renderComments);
   }
 }
 
@@ -18,11 +19,15 @@ function getRequest(method, url, callback = function(){}) {
       callback(JSON.parse(this.responseText));
     }
   });
+  xhr.onerror = function () {
+    console.error(xhr.statusText);
+  };
   xhr.open(method, url, true);
   xhr.send(data);
 }
 
 function renderPosts(res) {
+  spinnerHide(false);
   for (let key in res) {
     if (res[key].hasOwnProperty('userId')) {
       if (res[key].userId == window.location.search.slice(11)) {
@@ -67,15 +72,14 @@ function commentsRef(container, postId) {
 }
 
 function renderComments(res, container, postId) {
-  console.log(res);
   for (let key in res) {
     if (res[key].hasOwnProperty('postId')) {
-      console.log(res[key]);
       if (res[key].postId == postId) {
         createComment(res[key], container);
       }
     }
   }
+  spinnerHide(true);
 }
 function createComment(comment, container) {
   let {body, id, name} = comment;
@@ -139,8 +143,9 @@ function createUserCard(user) {
 
   let avatar = card.getElementsByClassName('avatar')[0];
   addAvatar(avatar);
-
-  document.getElementById('block').appendChild(card);
+  
+  block = document.getElementById('block');
+  block.appendChild(card);
 
   let deleteBtn = card.getElementsByClassName('delete-btn')[0];
   deleteBtn.addEventListener('click', () => {
@@ -163,4 +168,19 @@ function addAvatar(avatar) {
   });
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search', true);
   xhr.send(data);
+  spinnerHide(true);
+}
+
+//spinner
+function spinnerHide(boolean) {
+  block = document.getElementById('block');
+  spinner = document.getElementsByClassName('spinner')[0];
+
+  if (boolean) {
+    spinner.classList.add('hide');
+    block.classList.remove('hide');
+  } else {
+    spinner.classList.remove('hide');
+    block.classList.add('hide');
+  }
 }
