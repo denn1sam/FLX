@@ -42,9 +42,10 @@
   width: 100%;
 }
 .button {
+  color: #eee;
   cursor: pointer;
   padding: 8px 10px;
-  margin: 5px;
+  margin: 5px 10px 0 0;
   border: none;
 }
 .edit-btn {
@@ -52,10 +53,6 @@
 }
 .delete-btn {
   background: #d14242;
-}
-.input {
-  padding: 6px;
-  margin-right: 10px; 
 }
 
 .main {
@@ -103,6 +100,29 @@
 .comments-container {
   border-top: 1px solid #1a1c1d;
   margin-top: 10px;
+}
+
+.edit-plate {
+  border-top: 1px solid #429dd1;
+}
+.edit-plate form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.edit-plate form label {
+  padding: 5px;
+}
+.edit-inp {
+  font-size: 16px;
+  padding: 3px;
+  margin-left: 15px;
+  border: none;
+  border-bottom: 1px solid #429dd1;
+}
+.save-edit-changes-btn {
+  padding: 10px;
+  background: #429dd1;
 }
 
 @keyframes spinner {

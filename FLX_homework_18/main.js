@@ -19,7 +19,7 @@ function getRequest(method, url, callback = function(){}) {
       callback(JSON.parse(this.responseText));
     }
   });
-  xhr.onerror = function () {
+  xhr.onerror = () => {
     console.error(xhr.statusText);
   };
   xhr.open(method, url, true);
@@ -37,7 +37,6 @@ function renderPosts(res) {
   }
 }
 function createPost(postObj) {
-  console.log(postObj);
   let {id, body, title} = postObj;
   let html = `
   <div class="post-head">
@@ -96,12 +95,8 @@ function createComment(comment, container) {
   container.appendChild(commentContainer);
 }
 
-
 function renderUserList(res) {
-  console.log(res);
-  res.forEach(el => {
-    createUserCard(el);
-  });
+  res.forEach(el => {createUserCard(el)});
 }
 function createUserCard(user) {
   let {
@@ -117,9 +112,8 @@ function createUserCard(user) {
     <img class="avatar">
   </div>
   <div class="small-info">
-    <p class="username"><a href="/?userPosts=${id}">${userName}</a></p>
+    <p class="username"><a class="user-ref" href="/?userPosts=${id}">${userName}</a></p>
     <div class="actions">
-      <input type="text" class="input" value="changes" disabled>
       <button class="button edit-btn" type="submit">Edit</button>
       <button class="button delete-btn" type="submit">Delete</button>
     </div>
@@ -127,18 +121,42 @@ function createUserCard(user) {
   <div class="main">
     <div class="address">
       <p>address:</p>
-      <div>City: ${city}</div>
-      <div>Street: ${street}</div>
-      <div>Zipcode: ${zipcode}</div>
+      <div class="city-name">City: ${city}</div>
+      <div class="street-name">Street: ${street}</div>
+      <div class="zipcode">Zipcode: ${zipcode}</div>
     </div>
     <div class="footer">
-      <p>company: ${companyName}</p>
-      <p>phone: ${userphone}</p>
+      <p class="company-name">company: ${companyName}</p>
+      <p class="phone-num">phone: ${userphone}</p>
     </div>
+  </div>
+  <div class="edit-plate hide">
+    <form name="user">
+      <label> User name:
+        <input class="edit-inp e-user-name" type="text" name="userName" value="${userName}">
+      </label>
+      <label> City:
+        <input class="edit-inp e-city" type="text" name="city" value="${city}">
+      </label>
+      <label> Street:
+        <input class="edit-inp e-street" type="text" name="street" value="${street}">
+      </label>
+      <label> Zipcode:
+        <input class="edit-inp e-zipcode" type="text" name="zipcode" value="${zipcode}">
+      </label>
+      <label> CompanyName:
+        <input class="edit-inp e-company-name" type="text" name="companyName" value="${companyName}">
+      </label>
+      <label> User userphone:
+        <input class="edit-inp e-user-phone" type="text" name="userphone" value="${userphone}">
+      </label>
+      <input class="button save-edit-changes-btn" type="button" name="user" value="Save changes">
+    </form>
   </div>
   `;
   let card = document.createElement('div');
   card.classList.add('card');
+  card.id = `user-${id}`;
   card.innerHTML = html;
 
   let avatar = card.getElementsByClassName('avatar')[0];
@@ -154,6 +172,79 @@ function createUserCard(user) {
       getRequest('DELETE', `https://jsonplaceholder.typicode.com/users/${user.id}`);
     }
   });
+
+  let editBtn = card.getElementsByClassName('edit-btn')[0];
+  let editPlate = card.getElementsByClassName('edit-plate')[0];
+  editBtn.addEventListener('click', () => {
+    editPlate.classList.toggle('hide');
+  });
+
+
+  let saveChanges = card.getElementsByClassName('save-edit-changes-btn')[0];
+  saveChanges.addEventListener('click', () => {
+    editPlate.classList.add('hide');
+
+    let editUserName = card.getElementsByClassName('e-user-name')[0];
+    let editCity = card.getElementsByClassName('e-city')[0];
+    let editStreet = card.getElementsByClassName('e-street')[0];
+    let editZipCode = card.getElementsByClassName('e-zipcode')[0];
+    let editCompanyName = card.getElementsByClassName('e-company-name')[0];
+    let editUserPhone = card.getElementsByClassName('e-user-phone')[0];
+    
+    let editData = {
+      id: id,
+      name: editUserName.value,
+      address: {
+        city: editCity.value,
+        street: editStreet.value,
+        zipcode: editZipCode.value
+      },
+      company: {name: editCompanyName.value},
+      phone: editUserPhone.value
+    }
+    renderEditCard(card);
+    submitEditUserData(editData);
+  });
+}
+
+function renderEditCard(card) {
+  let editUserName = card.getElementsByClassName('e-user-name')[0];
+  let editCity = card.getElementsByClassName('e-city')[0];
+  let editStreet = card.getElementsByClassName('e-street')[0];
+  let editZipCode = card.getElementsByClassName('e-zipcode')[0];
+  let editCompanyName = card.getElementsByClassName('e-company-name')[0];
+  let editUserPhone = card.getElementsByClassName('e-user-phone')[0];
+
+  let userNameEl = card.getElementsByClassName('user-ref')[0];
+  let cityEl = card.getElementsByClassName('city-name')[0];
+  let streetEl = card.getElementsByClassName('street-name')[0];
+  let zipcodeEl = card.getElementsByClassName('zipcode')[0];
+  let companyNameEl = card.getElementsByClassName('company-name')[0];
+  let phoneEl = card.getElementsByClassName('phone-num')[0];
+
+  userNameEl.innerText = editUserName.value;
+  cityEl.innerText = 'City: ' + editCity.value;
+  streetEl.innerText = 'Street: ' + editStreet.value;
+  zipcodeEl.innerText = 'Zipcode: ' + editZipCode.value;
+  companyNameEl.innerText = 'company: ' + editCompanyName.value;
+  phoneEl.innerText = 'phone: ' + editUserPhone.value;
+}
+
+function submitEditUserData(user) {
+  let data = null;
+  let xhr = new XMLHttpRequest();
+  xhr.addEventListener('readystatechange', function () {
+    if (this.readyState === 4) {
+      console.log(JSON.parse(this.responseText));
+    }
+  });
+  xhr.onerror = () => {
+    console.error(xhr.statusText);
+  };
+  xhr.open('PUT', `https://jsonplaceholder.typicode.com/users/${user.id}`, true);
+  xhr.send(data);
+
+  spinnerHide(true);
 }
 
 function addAvatar(avatar) {
@@ -171,7 +262,6 @@ function addAvatar(avatar) {
   spinnerHide(true);
 }
 
-//spinner
 function spinnerHide(boolean) {
   block = document.getElementById('block');
   spinner = document.getElementsByClassName('spinner')[0];
