@@ -231,18 +231,17 @@ function renderEditCard(card) {
 }
 
 function submitEditUserData(user) {
-  let data = null;
   let xhr = new XMLHttpRequest();
   xhr.addEventListener('readystatechange', function () {
     if (this.readyState === 4) {
-      console.log(JSON.parse(this.responseText));
+      return;
     }
   });
   xhr.onerror = () => {
     console.error(xhr.statusText);
   };
   xhr.open('PUT', `https://jsonplaceholder.typicode.com/users/${user.id}`, true);
-  xhr.send(data);
+  xhr.send(user);
 
   spinnerHide(true);
 }
