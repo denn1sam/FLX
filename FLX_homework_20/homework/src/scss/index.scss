@@ -1,0 +1,102 @@
+@import 'material-icons'; // self hosted material icons
+
+$play-list-item-bg-color: #f1f1f1;
+$favorite-hover-color-red: #ff0000;
+$favorite-hover-color-black: #000000;
+$audio-player-bg: #e7c7c7;
+
+.playlist-component {
+  flex: 4 0 auto;
+  h2 {
+    margin: 10px 10px 0 10px;
+  }
+  .playlist-filters {
+    display: flex;
+    border-bottom: 1px solid;
+    font-size: 10pt;
+    .filters-wrapper {
+      display: flex;
+      .filter {
+        padding: 10px;
+        margin: 0;
+        cursor: pointer;
+      }
+      .active {
+        font-weight: bolder;
+      }
+    }
+  }
+  .music-list {
+    margin: 10px 0 0 0;
+    padding: 0;
+  }
+  .empty-playlist-message {
+    font-weight: bold;
+    font-size: 10pt;
+  }
+}
+
+.playlist-item {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: $play-list-item-bg-color;
+  margin: 3px;
+  .play-stop-button {
+    flex: 1 0 auto;
+    text-align: center;
+    i {
+      cursor: pointer;
+    }
+  }
+  .description {
+    flex: 30 0 auto;
+    p {
+      margin: 0;
+    }
+    .description-title {
+      font-weight: bold;
+      margin: 3px;
+    }
+    .description-author {
+      margin: 3px;
+    }
+  }
+  .like-button {
+    flex: 1 0 auto;
+    text-align: center;
+    .liked {
+      color: $favorite-hover-color-red;
+      &:hover {
+        color: $favorite-hover-color-black;
+      }
+    }
+
+    i {
+      cursor: pointer;
+    }
+    &:hover {
+      color: $favorite-hover-color-red;
+    }
+  }
+}
+
+.widget-component {
+  flex: 2 0 auto;
+  .audio-player {
+    background-color: $audio-player-bg;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 10px;
+
+    height: 100px;
+    text-align: center;
+  }
+}
+
+.main-wrap {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+}
