@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Rock, Paper, or Scissors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div class="main-wrap">
+    <header class="header">
+      <p class="logo">Rock, Paper, or Scissors</p>
+    </header>
+    <main class="main">
+      <div class="info">
+        <h3>Rules:</h3>
+        <ul class="rules">
+          <li class="rule">Rock beats a scissors!</li>
+          <li class="rule">Scissors beats a paper!</li>
+          <li class="rule">Paper beats a rock!</li>
+        </ul>
+      </div>
+      <div class="start-game-wrap">
+        <div>
+          <p>Get more wins in 3 rounds than your opponent!</p>
+          <input class="start-game" type="button" name="start-game" value="LETS GO!">
+          <input class="reset-game hide" type="button" name="reset" value="RESET">
+        </div>
+        <div class="game-elements hide">
+          <div id="rock" data-id="0"></div>
+          <div id="scissors" data-id="1"></div>
+          <div id="paper" data-id="2"></div>
+        </div>
+        <div class="battle-info">
+          <div class="battle-moves"></div>
+          <div class="result"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

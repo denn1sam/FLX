@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-wrap {
+  margin: auto;
+}
+
+.header {
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 1px 10px #a87f0f;
+}
+.hide {
+  display: none !important;
+}
+
+.main {
+  padding-top: 30px;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  h3 {
+    font-size: 26px;
+  }
+  li {
+    border-left: 1px solid #664c05; 
+    font-size: 22px;
+    list-style: none;
+    padding: 0 10px;
+    margin: 15px 10px;
+  }
+}
+.start-game-wrap {
+  text-align: center;
+
+  p, .result {
+    font-size: 26px;
+    font-weight: 500;
+    padding: 15px;
+  }
+}
+.start-game, .reset-game {
+  padding: 15px 20px;
+  font-size: 18px;
+  border: none;
+  color: #ffffff;
+  background: #a87f0f;
+
+  &:hover {
+    box-shadow: 2px 3px 5px #664c05;
+  }
+}
+
+.game-elements {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    height: 300px;
+    width: 100%;
+    cursor: pointer;
+  }
+}
+#rock {
+  background: url('../img/rock.jpg') no-repeat;
+  background-size: contain;
+}
+#scissors {
+  background: url('../img/scissors.jpg') no-repeat;
+  background-size: contain;
+}
+#paper {
+  background: url('../img/paper.jpg') no-repeat 0 50px;
+  background-size: contain;
+}
